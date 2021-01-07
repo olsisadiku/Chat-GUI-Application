@@ -6,21 +6,23 @@ import selectors
 HOST = 'localhost'
 PORT = 8002
 
+ADDRESS = (HOST,PORT)
+
 sel = selectors.DefaultSelector()
 
-lsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-lsock.bind((HOST, PORT))
-lsock.listen()
-print("listening on", (HOST, PORT))
-lsock.setblocking(False)
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind(ADDRESS)
+s.listen()
 
-
-
-
-
-
-
-
+while True: 
+    
+    conn, addr = s.accept()
+    print('listening on', PORT)
+    while True:
+        message = conn.recv(1024).decode()
+        if message == 'exit the messaging platform': break
+        print(message)
+        break
 
 
 
