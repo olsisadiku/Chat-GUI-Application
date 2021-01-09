@@ -18,11 +18,13 @@ while True:
     
     conn, addr = s.accept()
     print('listening on', PORT)
-    while True:
-        message = conn.recv(1024).decode()
-        if message == 'exit the messaging platform': break
-        print(message)
-        break
+    message = conn.recv(1024).decode()
+    name = message[0:message.index(':')]
+    if(name == 'Olsi'):
+        num_client = '1'; 
+        s.sendall()
+    print(name)
+    if message == 'e': break
 
 
 

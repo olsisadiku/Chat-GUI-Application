@@ -16,7 +16,9 @@ s.connect(ADDRESS)
 
 my_name = input('What is your name? ')
 
-def person1_window():
+
+
+def person2_window():
     import tkinter as tk
 
     root = tk.Tk()
@@ -25,7 +27,8 @@ def person1_window():
 
     def send():
         send = my_name + ': ' + e.get()
-        s.sendall(bytes(send,'utf-8'))
+        s.sendall(send)
+        
         txt.insert(tk.END, '\n' + send)
 
 
@@ -44,15 +47,4 @@ def person1_window():
     root.resizable(False, False) 
     root.mainloop()
 
-
-person1_window()
-
-
-s.close()
-
-
-
-
-
-
-
+person2_window()
