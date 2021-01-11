@@ -21,8 +21,8 @@ while True:
     message = conn.recv(1024).decode()
     name = message[0:message.index(':')]
     if(name == 'Olsi'):
-        num_client = '1'; 
-        s.sendall()
+        num_client = '1'
+        s.sendall(bytes(name + ': ' + message[message.index(':'):], 'utf-8'))
     print(name)
     if message == 'e': break
 

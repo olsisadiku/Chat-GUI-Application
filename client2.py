@@ -28,8 +28,8 @@ def person2_window():
     def send():
         send = my_name + ': ' + e.get()
         s.sendall(send)
-        
-        txt.insert(tk.END, '\n' + send)
+        value = s.recv(1024)
+        txt.insert(tk.END, '\n' + value)
 
 
     txt = tk.Text(root)
