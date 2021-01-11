@@ -1,30 +1,29 @@
 import tkinter
 import socket
 import selectors
+import threading    
 
+# s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# s.bind(ADDRESS)
+# s.listen()
 
-HOST = 'localhost'
-PORT = 8002
+class ThreadedServer(object):
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
+        self.address = (self.host, self.port)
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.clients_connected = 0
+        self.socket.bind(self.address)
 
-ADDRESS = (HOST,PORT)
-
-sel = selectors.DefaultSelector()
-
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(ADDRESS)
-s.listen()
-
-while True: 
+    def listen(self):
+        self.socket.listen(5)
+        while True: 
+            client, address = self.socket.accept()
+            self.clients_connected += 1
     
-    conn, addr = s.accept()
-    print('listening on', PORT)
-    message = conn.recv(1024).decode()
-    name = message[0:message.index(':')]
-    if(name == 'Olsi'):
-        num_client = '1'
-        s.sendall(bytes(name + ': ' + message[message.index(':'):], 'utf-8'))
-    print(name)
-    if message == 'e': break
+server = ThreadedServer('localhost', 8002)
+
 
 
 
