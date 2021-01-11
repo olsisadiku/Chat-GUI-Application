@@ -15,7 +15,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect(ADDRESS)
 
 my_name = input('What is your name? ')
-
+s.sendall(str.encode('Name:'+my_name))
 def person1_window():
     import tkinter as tk
 

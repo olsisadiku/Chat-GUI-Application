@@ -17,12 +17,21 @@ class ThreadedServer(object):
         self.socket.bind(self.address)
 
     def listen(self):
+        my_dict = {}
         self.socket.listen(5)
         while True: 
             client, address = self.socket.accept()
             self.clients_connected += 1
-    
-server = ThreadedServer('localhost', 8002)
+            print('Address:', address[1])
+            name_of_client = client.recv(1024).decode()
+            if('Name:' in name_of_client):
+                my_dict[name_of_client[5:]] = address
+                print(my_dict[name_of_client[5:]])
+
+
+
+
+server = ThreadedServer('localhost', 8002).listen()
 
 
 
