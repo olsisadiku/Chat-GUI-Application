@@ -22,14 +22,16 @@ class ThreadedServer(object):
         while True: 
             client, address = self.socket.accept()
             self.clients_connected += 1
-            print('Address:', address[1])
-            name_of_client = client.recv(1024).decode()
-            if('Name:' in name_of_client):
-                my_dict[name_of_client[5:]] = address
-                print(my_dict[name_of_client[5:]])
-
-
-
+            message = client.recv(1024).decode('utf-8')
+            print(message)
+            if('Name:' in message):
+                my_dict[message[5:]] = client
+            elif(':' in message):
+                print('RAN')
+                name = message[:message.find(':')]
+                for index, clr in my_dict.items:
+                    if(index != name):
+                        clr.sendall(bytes(message[:],'utf-8'))
 
 server = ThreadedServer('localhost', 8002).listen()
 

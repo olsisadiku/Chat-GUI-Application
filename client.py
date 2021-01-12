@@ -24,9 +24,10 @@ def person1_window():
     root.iconbitmap('thunderbird1_ico.ico')
 
     def send():
-        send = my_name + ': ' + e.get()
-        s.sendall(bytes(send,'utf-8'))
-        txt.insert(tk.END, '\n' + send)
+        print('Ran')
+        senpai = my_name + ': ' + e.get()
+        s.sendall(senpai.encode('utf-8'))
+        txt.insert(tk.END, '\n' + senpai)
 
 
     txt = tk.Text(root)
