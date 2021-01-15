@@ -68,7 +68,8 @@ class ThreadedServer(object):
                 string_sent = client.recv(1024).decode('utf-8')
                 message = string_sent[string_sent.find(':') + 1:]
                 print(message)
-                c.sendall(name_client2+':'+ message).encode('utf-8')
+
+                c.sendall(bytes(name_client2+':'+ message,'utf-8'))
                 
             except:
                 pass
@@ -76,7 +77,7 @@ class ThreadedServer(object):
                 string_sent = c.recv(1024).decode('utf-8')
                 message = string_sent[string_sent.find(':') + 1:]
                 print(message)
-                client.sendall(name_client1+':'+ message).encode('utf-8')
+                client.sendall(bytes(name_client1+':'+ message,'utf-8'))
             except:
                 pass
 

@@ -17,12 +17,8 @@ s.setblocking(False)
 
 my_name = input('What is your name? ')
 s.sendall(str.encode('Name:'+my_name))
-while True:
-    try:
-        a = s.recv(1024).decode('utf-8')
-        print(a)
-    except:
-        continue
+
+    
 
 
 def person1_window():
@@ -70,7 +66,7 @@ def person1_window():
 
 
 
-# person1_window()
+person1_window()
 
 
 s.close()
