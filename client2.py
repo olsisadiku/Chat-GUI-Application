@@ -56,3 +56,4 @@ def person2_window():
     root.mainloop()
 
 person2_window()
+s.close()

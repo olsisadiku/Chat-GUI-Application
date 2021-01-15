@@ -68,7 +68,8 @@ class ThreadedServer(object):
                 string_sent = client.recv(1024).decode('utf-8')
                 message = string_sent[string_sent.find(':') + 1:]
                 print(message)
-
+                if not message:
+                    break
                 c.sendall(bytes(name_client2+':'+ message,'utf-8'))
                 
             except:
@@ -77,25 +78,11 @@ class ThreadedServer(object):
                 string_sent = c.recv(1024).decode('utf-8')
                 message = string_sent[string_sent.find(':') + 1:]
                 print(message)
+                if not message:
+                    break
                 client.sendall(bytes(name_client1+':'+ message,'utf-8'))
             except:
                 pass
-
-
-        # while True: 
-        #     if(self.clients_connected != 2):
-        #         client, address = self.socket.accept()
-        #         self.clients_connected += 1
-        #         clients.append(client)
-        #     message = client.recv(1024).decode() 
-        #     if('Name:' in message):
-        #         my_dict[message[5:]] = client
-        #     elif(':' in message):
-        #         print('RAN')
-        #         name = message[:message.find(':')]
-        #         for index, clr in my_dict.items():
-        #             if(index != name):
-        #                 clr.sendall(bytes(message[:],'utf-8'))
 
 server = ThreadedServer('localhost', 8002).listen()
 

@@ -60,14 +60,7 @@ def person1_window():
 
     root.mainloop()
 
-
-
-
-
-
-
 person1_window()
-
 
 s.close()
 
