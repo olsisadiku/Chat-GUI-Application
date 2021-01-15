@@ -63,9 +63,24 @@ class ThreadedServer(object):
             break
         print('Name of client 1',  name_client1)
         print('Name of client 2', name_client2)
-        
-        
-        
+        while True:
+            try:
+                string_sent = client.recv(1024).decode('utf-8')
+                message = string_sent[string_sent.find(':') + 1:]
+                print(message)
+                c.sendall(name_client2+':'+ message).encode('utf-8')
+                
+            except:
+                pass
+            try:
+                string_sent = c.recv(1024).decode('utf-8')
+                message = string_sent[string_sent.find(':') + 1:]
+                print(message)
+                client.sendall(name_client1+':'+ message).encode('utf-8')
+            except:
+                pass
+
+
         # while True: 
         #     if(self.clients_connected != 2):
         #         client, address = self.socket.accept()

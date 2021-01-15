@@ -1,7 +1,8 @@
 import socket 
 import selectors
 import tkinter as tk
-
+import threading
+import time
 
 HOST = 'localhost'
 PORT = 8002
@@ -22,20 +23,27 @@ def person2_window():
     import tkinter as tk
 
     root = tk.Tk()
-    root.title('Sadiku Messaging')
+    root.title(my_name + ' Messaging')
+
     root.iconbitmap('thunderbird1_ico.ico')
 
     def send():
-        send = my_name + ': ' + e.get()
-        s.sendall(str.encode(send))
+        print('Ran')
+        senpai = my_name + ': ' + e.get()
+        s.sendall(senpai.encode('utf-8'))
+        txt.insert(tk.END, '\n' + senpai)
 
-    while True:
+    def receiver():
         try:
-            value = s.recv(1024).decode('utf-8')
-        except BlockingIOError:
-            break
-        txt.insert(tk.END, '\n' + value)
+            message = s.recv(1024).decode('utf-8')
+            txt.insert(tk.END, '\n' + message)
+        except:
+            pass
+        root.after(500, receiver)
 
+    runner = threading.Thread(target = receiver)
+    runner.start()         
+    time.sleep(.5)  
     txt = tk.Text(root)
     txt.grid(row = 0, column = 0, columnspan = 2)
     e = tk.Entry(root, width = 100)
@@ -43,6 +51,8 @@ def person2_window():
     e.grid(row = 1, column = 0)
 
     root.resizable(False, False) 
+    receiver()
+    
     root.mainloop()
 
 person2_window()
